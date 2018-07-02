@@ -13,13 +13,33 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import random
 from django.contrib import admin
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import path, re_path
 
 
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'age': self.age,
+        }
+
+    # Django REST Framework (DRF)
+
 def home(request):  # view function
-    return HttpResponse("Hello World!")
+    return JsonResponse({
+        'status': "OK",
+        'value': random.randint(1, 10),
+    })
+    # return HttpResponseBadRequest("Hello World!", "text/plain")
+    # return HttpResponse("Hello World!", content_type="text/plain",
+    # status=400)
 
 
 def hello(request, name):
