@@ -15,3 +15,6 @@ class Expense(models.Model):
 
     def is_expensive(self):
         return self.amount >= 100
+    is_expensive.boolean = True
+    is_expensive.short_description = "$$$$"
+    is_expensive.admin_order_field = "amount"

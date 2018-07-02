@@ -1,0 +1,18 @@
+<ul>
+    <li>{{ foo }}
+        {% if foo == 1 %}
+            😁
+        {% else %}
+            😢
+        {% endif %}
+    </li>
+    <li>{{ bar }}</li>
+    <li>
+        <ul>
+            {% for color in colors %}
+                <li>{{ color }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+</ul>
