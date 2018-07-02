@@ -21,12 +21,31 @@ from django.urls import path, re_path
 def home(request):  # view function
     return HttpResponse("Hello World!")
 
-def hello(request, name):  # view function
+
+def hello(request, name):
     return HttpResponse(f"Hello {name.title()}!")
+
+
+def birthday(request, name, age):
+    return HttpResponse(f"{name.title()} is {age} years old!")
+
+
+# def plus(request, a, b):
+#     return HttpResponse(f"<p>{a} + {b} = <b>{int(a) + int(b)}</b></p>")
+#
+def plus(request, a, b):
+    return HttpResponse(f"<p>{a} + {b} = <b>{a + b}</b></p>")
 
 
 urlpatterns = [
     re_path(r"^$", home),
+    re_path(r"^hello/$", hello, kwargs={'name': "joe"}),
+    re_path(r"^hellllllooooo/$", hello, kwargs={'name': "danny"}),
     re_path(r"^hello/([a-zA-Z]+)/$", hello),
+    # re_path(r"^plus/([0-9]+)/([0-9]+)/$", plus),
+    path(r"plus/<int:a>/<int:b>/", plus),
+    # re_path(r"^plus/(\d+)/(\d+)/$", plus),
+    re_path(r"^birthday/(\w+)/([0-9]+)/$", birthday),
+    re_path(r"^birthday/(?P<age>[0-9]+)/(?P<name>\w+)/$", birthday),
     path('admin/', admin.site.urls),
 ]
