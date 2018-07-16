@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Create Expense
+{% endblock %}
+
+{% block heading %}
+    Create Expense
+{% endblock %}
+
+{% block content %}
+    <form method="POST" novalidate>
+        <ul>
+            {{ form.as_ul }}
+            <li>
+                <button>Add</button>
+            </li>
+        </ul>
+    </form>
+
+{% endblock %}
