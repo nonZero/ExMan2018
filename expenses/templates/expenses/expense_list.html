@@ -1,40 +1,53 @@
-<table border="1">
-    <tr>
-        <th>
-            Date
-        </th>
-        <th>
-            Amount
-        </th>
-        <th>
-            Title
-        </th>
-    </tr>
-    {% for object in object_list %}
-        <tr>
-            <td>
-                <a href="{% url "expenses:detail" object.id %}">
-                    {{ object.date }}
-                </a>
-            </td>
-            <td>
-                ${{ object.amount }}
-            </td>
-            <td>
-                {{ object.title }}
-            </td>
-        </tr>
-    {% endfor %}
-    <tr>
-        <th>
-            Total:
-        </th>
-        <th>
-            ${{ total }}
-        </th>
-        <th>
-            Items: {{ object_list.count }}
-        </th>
-    </tr>
+{% extends "base.html" %}
 
-</table>
+{% block title %}
+    Home
+{% endblock %}
+
+{% block heading %}
+    Expenses
+{% endblock %}
+
+{% block content %}
+    <table border="1">
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Title
+            </th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td>
+                    <a href="{% url "expenses:detail" object.id %}">
+                        {{ object.date }}
+                    </a>
+                </td>
+                <td>
+                    ${{ object.amount }}
+                </td>
+                <td>
+                    {{ object.title }}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th>
+                Total:
+            </th>
+            <th>
+                ${{ total }}
+            </th>
+            <th>
+                Items: {{ object_list.count }}
+            </th>
+        </tr>
+
+    </table>
+
+{% endblock %}

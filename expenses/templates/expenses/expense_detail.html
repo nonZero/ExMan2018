@@ -1,17 +1,26 @@
-<h1>
+{% extends "base.html" %}
+
+{% block title %}
     Expense #{{ object.id }}
-</h1>
-<ul>
-    <li>
-        Date: {{ object.date }}
-    </li>
-    <li>
-        Amount: ${{ object.amount }}
-    </li>
-    <li>
-        Title: {{ object.title }}
-    </li>
-    <li>
-        {{ object.comment|linebreaks }}
-    </li>
-</ul>
+{% endblock %}
+
+{% block heading %}
+    Expense #{{ object.id }}
+{% endblock %}
+
+{% block content %}
+    <ul>
+        <li>
+            Date: {{ object.date }}
+        </li>
+        <li>
+            Amount: ${{ object.amount }}
+        </li>
+        <li>
+            Title: {{ object.title }}
+        </li>
+        <li>
+            {{ object.comment|linebreaks }}
+        </li>
+    </ul>
+{% endblock %}
