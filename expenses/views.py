@@ -26,8 +26,7 @@ def expense_create(request):
     if request.method == "POST":
         form = ExpenseForm(request.POST)
         if form.is_valid():
-            funny = form.cleaned_data.pop('funny')
-            o = Expense.objects.create(**form.cleaned_data)
+            o = form.save()
             return redirect(o)
     else:
         form = ExpenseForm()
