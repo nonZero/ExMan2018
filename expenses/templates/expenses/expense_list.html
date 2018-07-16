@@ -1,18 +1,38 @@
-<ul>
-    <li>{{ foo }}
-        {% if foo == 1 %}
-            😁
-        {% else %}
-            😢
-        {% endif %}
-    </li>
-    <li>{{ bar }}</li>
-    <li>
-        <ul>
-            {% for color in colors %}
-                <li>{{ color }}</li>
-            {% endfor %}
-        </ul>
-    </li>
+<table border="1">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Title
+        </th>
+    </tr>
+    {% for object in object_list %}
+        <tr>
+            <td>
+                {{ object.date }}
+            </td>
+            <td>
+                ${{ object.amount }}
+            </td>
+            <td>
+                {{ object.title }}
+            </td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <th>
+            Total:
+        </th>
+        <th>
+            ${{ total }}
+        </th>
+        <th>
+            Items: {{ object_list.count }}
+        </th>
+    </tr>
 
-</ul>
+</table>

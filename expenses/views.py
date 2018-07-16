@@ -1,10 +1,13 @@
-import random
+from django.db.models import Sum
 from django.shortcuts import render
+
+from expenses.models import Expense
 
 
 def list_expenses(request):
     return render(request, "expenses/expense_list.html", {
-        'foo': random.randint(1, 3),
-        'bar': 'kuku<b>kuku</b>',
-        'colors': ['red', 'green', 'blue'],
+        'object_list': Expense.objects.all(),
+        # 'total': sum(o.amount for o in Expense.objects.all())
+        'total': Expense.objects.aggregate(
+            total=Sum('amount'))['total']
     })
