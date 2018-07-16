@@ -1,6 +1,6 @@
 from django import forms
 
-from expenses.models import Expense
+from expenses.models import Expense, Note
 
 
 class ExpenseForm(forms.ModelForm):
@@ -9,3 +9,11 @@ class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
         fields = "__all__"
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = (
+            'content',
+        )

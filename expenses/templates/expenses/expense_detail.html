@@ -24,14 +24,17 @@
         </li>
     </ul>
 
-    <ol>
+    <ul>
+        <li>
+            <a href="{% url "expenses:note_create" object.id %}">Create new note...</a>
+        </li>
         {% for note in object.notes.all %}
             <li>
                 <b>{{ note.created_at }}</b>
                 {{ note.content|linebreaks }}
             </li>
         {% endfor %}
-    </ol>
+    </ul>
 
 
 

@@ -30,3 +30,8 @@ class Note(models.Model):
                                 related_name='notes')
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
+
+    class Meta:
+        ordering = (
+            '-created_at',
+        )
