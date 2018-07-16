@@ -17,8 +17,18 @@ def expense_list(request):
 def expense_detail(request, pk):
     o = get_object_or_404(Expense, pk=pk)
 
+    if request.method == "POST":
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            form.instance.expense = o
+            form.save()
+            return redirect(o)
+    else:
+        form = NoteForm()
+
     return render(request, "expenses/expense_detail.html", {
         'object': o,
+        'form': form,
     })
 
 
@@ -37,19 +47,3 @@ def expense_create(request):
     })
 
 
-def note_create(request, pk):
-    o = get_object_or_404(Expense, pk=pk)
-
-    if request.method == "POST":
-        form = NoteForm(request.POST)
-        if form.is_valid():
-            form.instance.expense = o
-            form.save()
-            return redirect(o)
-    else:
-        form = NoteForm()
-
-    return render(request, "expenses/note_form.html", {
-        'object': o,
-        'form': form,
-    })

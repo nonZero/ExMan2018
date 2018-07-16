@@ -26,7 +26,15 @@
 
     <ul>
         <li>
-            <a href="{% url "expenses:note_create" object.id %}">Create new note...</a>
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                <ul>
+                    {{ form.as_ul }}
+                    <li>
+                        <button>Add</button>
+                    </li>
+                </ul>
+            </form>
         </li>
         {% for note in object.notes.all %}
             <li>
