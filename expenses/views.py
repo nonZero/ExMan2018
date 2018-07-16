@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -5,6 +6,7 @@ from expenses.forms import ExpenseForm, NoteForm
 from expenses.models import Expense
 
 
+@login_required
 def expense_list(request):
     return render(request, "expenses/expense_list.html", {
         'object_list': Expense.objects.all(),
@@ -14,6 +16,7 @@ def expense_list(request):
     })
 
 
+@login_required
 def expense_detail(request, pk):
     o = get_object_or_404(Expense, pk=pk)
 
@@ -32,6 +35,7 @@ def expense_detail(request, pk):
     })
 
 
+@login_required
 def expense_create(request):
     if request.method == "POST":
         form = ExpenseForm(request.POST)
@@ -45,5 +49,3 @@ def expense_create(request):
     return render(request, "expenses/expense_form.html", {
         'form': form,
     })
-
-
