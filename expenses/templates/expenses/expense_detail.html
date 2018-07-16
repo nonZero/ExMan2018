@@ -23,4 +23,16 @@
             {{ object.comment|linebreaks }}
         </li>
     </ul>
+
+    <ol>
+        {% for note in object.notes.all %}
+            <li>
+                <b>{{ note.created_at }}</b>
+                {{ note.content|linebreaks }}
+            </li>
+        {% endfor %}
+    </ol>
+
+
+
 {% endblock %}

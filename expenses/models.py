@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # ORM: Object Relational Mapping
 
 
@@ -15,6 +16,14 @@ class Expense(models.Model):
 
     def is_expensive(self):
         return self.amount >= 100
+
     is_expensive.boolean = True
     is_expensive.short_description = "$$$$"
     is_expensive.admin_order_field = "amount"
+
+
+class Note(models.Model):
+    expense = models.ForeignKey(Expense, on_delete=models.CASCADE,
+                                related_name='notes')
+    created_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
