@@ -10,34 +10,34 @@
 
 {% block content %}
     <ul>
-        <li>
+        <li class="nice ugly">
             Date: {{ object.date }}
         </li>
-        <li>
+        <li class="nice">
             Amount: ${{ object.amount }}
         </li>
-        <li>
+        <li class="ugly nice">
             Title: {{ object.title }}
         </li>
-        <li>
+        <li class="ugly">
             {{ object.comment|linebreaks }}
         </li>
     </ul>
 
-    <ul>
-        <li>
+    <ul class="list-group">
+        <li class="list-group-item">
             <form method="POST" novalidate>
                 {% csrf_token %}
                 <ul>
                     {{ form.as_ul }}
                     <li>
-                        <button>Add</button>
+                        <button class="btn btn-primary">Add</button>
                     </li>
                 </ul>
             </form>
         </li>
         {% for note in object.notes.all %}
-            <li>
+            <li class="list-group-item">
                 <b>{{ note.created_at }}</b>
                 {{ note.content|linebreaks }}
             </li>
