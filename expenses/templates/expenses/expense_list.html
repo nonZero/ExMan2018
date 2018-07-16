@@ -13,7 +13,9 @@
     {% for object in object_list %}
         <tr>
             <td>
-                {{ object.date }}
+                <a href="{% url "expenses:detail" object.id %}">
+                    {{ object.date }}
+                </a>
             </td>
             <td>
                 ${{ object.amount }}
