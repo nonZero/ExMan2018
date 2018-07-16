@@ -1,5 +1,5 @@
 from django.db.models import Sum
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from expenses.forms import ExpenseForm
 from expenses.models import Expense
@@ -23,7 +23,15 @@ def expense_detail(request, pk):
 
 
 def expense_create(request):
-    form = ExpenseForm()
+    if request.method == "POST":
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            funny = form.cleaned_data.pop('funny')
+            o = Expense.objects.create(**form.cleaned_data)
+            return redirect(o)
+    else:
+        form = ExpenseForm()
+
     return render(request, "expenses/expense_form.html", {
         'form': form,
     })
