@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
@@ -42,6 +43,8 @@ def expense_create(request):
         if form.is_valid():
             # form.instance.expense = ...
             o = form.save()
+            msg = f"Expense #{o.id} created successfully."
+            messages.success(request, msg)
             return redirect(o)
     else:
         form = ExpenseForm()

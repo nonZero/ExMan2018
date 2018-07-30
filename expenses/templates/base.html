@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles bootstrap4 %}
 <!doctype html>
 <html lang="en">
 
@@ -19,19 +19,19 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url "expenses:list" %}">ExMan2018</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                aria-label="Toggle navigation">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target=".navbar-collapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse">
             <div class="navbar-nav">
                 <a class="nav-item nav-link"
                    href="{% url "expenses:create" %}">Create</a>
             </div>
         </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <div class="collapse navbar-collapse">
             <div class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <span class="navbar-text">
@@ -56,11 +56,15 @@
         {% endblock %}
     </h2>
 
+    {% bootstrap_messages %}
+
     {% block content %}
         CONTENT
     {% endblock %}
 
     <hr>
     &copy; 2019
+    <script src="{% static "vendor/jquery/jquery-3.3.1.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.js" %}"></script>
 </div>
 </body>
