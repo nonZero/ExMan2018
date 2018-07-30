@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, \
     CreateView, UpdateView, DeleteView
@@ -29,6 +29,9 @@ class ExpenseDetailView(ExpenseMixin, DetailView):
         if self.form.is_valid():
             self.form.instance.expense = self.get_object()
             self.form.save()
+            return render(request, "expenses/_note.html", {
+                'note': self.form.instance,
+            })
             return redirect(self.form.instance.expense)
 
         return super().get(request, *args, **kwargs)

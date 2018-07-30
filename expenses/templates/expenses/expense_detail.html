@@ -1,16 +1,19 @@
 {% extends "base.html" %}
-{% load bootstrap4 %}
+{% load bootstrap4 staticfiles %}
 
 {% block title %}
     Expense #{{ object.id }}
 {% endblock %}
 
 {% block heading %}
+
+    <div class="float-right">
+        <a class="btn btn-success"
+           href="{% url "expenses:update" object.pk %}">Update</a>
+        <a class="btn btn-danger"
+           href="{% url "expenses:delete" object.pk %}">Delete</a>
+    </div>
     Expense #{{ object.id }}
-    <a class="btn btn-success"
-       href="{% url "expenses:update" object.pk %}">Update</a>
-    <a class="btn btn-danger"
-       href="{% url "expenses:delete" object.pk %}">Delete</a>
 {% endblock %}
 
 {% block content %}
@@ -30,12 +33,12 @@
     </ul>
 
     <ul class="list-group">
-        <li class="list-group-item">
+        <li id="note-form" class="list-group-item">
             <form method="POST" novalidate>
                 {% csrf_token %}
                 {% bootstrap_form view.form %}
                 <div class="form-group">
-                    <button class="btn btn-primary">Add</button>
+                    <button id="add-note" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </li>
@@ -47,6 +50,8 @@
         {% endfor %}
     </ul>
 
+{% endblock %}
 
-
+{% block page_scripts %}
+<script src="{% static "js/expense_detail.js" %}"></script>
 {% endblock %}

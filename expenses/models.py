@@ -1,6 +1,5 @@
 from django.db import models
-
-# ORM: Object Relational Mapping
+from django.db.models import Sum
 from django.urls import reverse
 
 
@@ -35,3 +34,9 @@ class Note(models.Model):
         ordering = (
             '-created_at',
         )
+
+
+class Category(models.Model):
+    def total_amount(self):
+        # return sum(x.amount for x in self.expenses.all())
+        return self.expenses.aggregate(Sum('amount'))
