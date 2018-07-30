@@ -29,9 +29,10 @@ class ExpenseDetailView(ExpenseMixin, DetailView):
         if self.form.is_valid():
             self.form.instance.expense = self.get_object()
             self.form.save()
-            return render(request, "expenses/_note.html", {
-                'note': self.form.instance,
-            })
+            if request.is_ajax():
+                return render(request, "expenses/_note.html", {
+                    'note': self.form.instance,
+                })
             return redirect(self.form.instance.expense)
 
         return super().get(request, *args, **kwargs)
