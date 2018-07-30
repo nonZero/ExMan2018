@@ -33,7 +33,7 @@
             <form method="POST" novalidate>
                 {% csrf_token %}
                 <ul>
-                    {{ form.as_ul }}
+                    {{ view.form.as_ul }}
                     <li>
                         <button class="btn btn-primary">Add</button>
                     </li>
