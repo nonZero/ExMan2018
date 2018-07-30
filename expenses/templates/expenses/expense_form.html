@@ -2,11 +2,19 @@
 {% load bootstrap4 %}
 
 {% block title %}
-    Create Expense
+    {% if form.instance.id %}
+        Edit Expense #{{ form.instance.id }}
+    {% else %}
+        Create Expense
+    {% endif %}
 {% endblock %}
 
 {% block heading %}
-    Expense #{{ object.id }}: Create Note
+    {% if form.instance.id %}
+        Edit Expense #{{ form.instance.id }}
+    {% else %}
+        Create Expense
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +22,14 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button class="btn btn-primary">Add</button>
-        {% endbuttons %}    </form>
+            <button class="btn btn-primary">
+                {% if form.instance.id %}
+                    Update
+                {% else %}
+                    Add
+                {% endif %}
+            </button>
+        {% endbuttons %}
+    </form>
 
 {% endblock %}

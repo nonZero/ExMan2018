@@ -6,6 +6,8 @@
 
 {% block heading %}
     Expense #{{ object.id }}
+        <a class="btn btn-success"
+           href="{% url "expenses:update" object.pk %}">Update</a>
 {% endblock %}
 
 {% block content %}

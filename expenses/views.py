@@ -52,3 +52,22 @@ def expense_create(request):
     return render(request, "expenses/expense_form.html", {
         'form': form,
     })
+
+
+@login_required
+def expense_update(request, pk):
+    o = get_object_or_404(Expense, pk=pk)
+
+    if request.method == "POST":
+        form = ExpenseForm(request.POST, instance=o)
+        if form.is_valid():
+            o = form.save()
+            msg = f"Expense #{o.id} updated successfully."
+            messages.success(request, msg)
+            return redirect(o)
+    else:
+        form = ExpenseForm(instance=o)
+
+    return render(request, "expenses/expense_form.html", {
+        'form': form,
+    })
