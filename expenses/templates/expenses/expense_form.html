@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}
     Create Expense
@@ -11,12 +12,9 @@
 {% block content %}
     <form method="POST" novalidate>
         {% csrf_token %}
-        <ul>
-            {{ form.as_ul }}
-            <li>
-                <button>Add</button>
-            </li>
-        </ul>
-    </form>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button class="btn btn-primary">Add</button>
+        {% endbuttons %}    </form>
 
 {% endblock %}
