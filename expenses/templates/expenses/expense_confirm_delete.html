@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Delete Expense #{{ object.id }}
+{% endblock %}
+
+{% block heading %}
+    Delete Expense #{{ object.id }} ({{ object.title }})
+{% endblock %}
+
+{% block content %}
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        Are you sure?
+        {% buttons %}
+            <button class="btn btn-danger">Delete</button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

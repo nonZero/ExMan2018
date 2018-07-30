@@ -8,6 +8,8 @@
     Expense #{{ object.id }}
         <a class="btn btn-success"
            href="{% url "expenses:update" object.pk %}">Update</a>
+        <a class="btn btn-danger"
+           href="{% url "expenses:delete" object.pk %}">Delete</a>
 {% endblock %}
 
 {% block content %}
