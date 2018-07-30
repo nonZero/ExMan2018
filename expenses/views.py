@@ -10,34 +10,31 @@ from expenses.forms import NoteForm
 from expenses.models import Expense
 
 
-class ExpenseListView(LoginRequiredMixin, ListView):
+class ExpenseMixin(LoginRequiredMixin):
     model = Expense
 
+
+class ExpenseListView(ExpenseMixin, ListView):
     def total(self):
         return Expense.objects.aggregate(total=Sum('amount'))['total']
 
 
-class ExpenseDetailView(LoginRequiredMixin, DetailView):
-    model = Expense
-
+class ExpenseDetailView(ExpenseMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.form = NoteForm()
         return super().get(request, *args, **kwargs)
 
-    def post(self, request, pk):
-        self.object = self.get_object()
+    def post(self, request, *args, **kwargs):
         self.form = NoteForm(request.POST)
         if self.form.is_valid():
-            self.form.instance.expense = self.object
+            self.form.instance.expense = self.get_object()
             self.form.save()
-            return redirect(self.object)
+            return redirect(self.form.instance.expense)
 
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
+        return super().get(request, *args, **kwargs)
 
 
-class ExpenseCreateView(LoginRequiredMixin, CreateView):
-    model = Expense
+class ExpenseCreateView(ExpenseMixin, CreateView):
     fields = "__all__"
 
     def form_valid(self, form):
@@ -47,8 +44,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
         return resp
 
 
-class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
-    model = Expense
+class ExpenseUpdateView(ExpenseMixin, UpdateView):
     fields = "__all__"
 
     def form_valid(self, form):
@@ -58,8 +54,7 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
         return resp
 
 
-class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
-    model = Expense
+class ExpenseDeleteView(ExpenseMixin, DeleteView):
     success_url = reverse_lazy("expenses:list")
 
     def delete(self, request, *args, **kwargs):
