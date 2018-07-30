@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}
     Expense #{{ object.id }}
@@ -6,10 +7,10 @@
 
 {% block heading %}
     Expense #{{ object.id }}
-        <a class="btn btn-success"
-           href="{% url "expenses:update" object.pk %}">Update</a>
-        <a class="btn btn-danger"
-           href="{% url "expenses:delete" object.pk %}">Delete</a>
+    <a class="btn btn-success"
+       href="{% url "expenses:update" object.pk %}">Update</a>
+    <a class="btn btn-danger"
+       href="{% url "expenses:delete" object.pk %}">Delete</a>
 {% endblock %}
 
 {% block content %}
@@ -32,12 +33,10 @@
         <li class="list-group-item">
             <form method="POST" novalidate>
                 {% csrf_token %}
-                <ul>
-                    {{ view.form.as_ul }}
-                    <li>
-                        <button class="btn btn-primary">Add</button>
-                    </li>
-                </ul>
+                {% bootstrap_form view.form %}
+                <div class="form-group">
+                    <button class="btn btn-primary">Add</button>
+                </div>
             </form>
         </li>
         {% for note in object.notes.all %}
